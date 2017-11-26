@@ -14,7 +14,7 @@ namespace Tests
             this.playerTwo = playerTwo;
         }
 
-        public Result PlayGames(List<Game> games)
+        public Result ComputeMatchResult(List<Game> games)
         {
             var drawCount = 0;
             var p1WinCount = 0;

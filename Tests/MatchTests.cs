@@ -1,37 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
-using RockPaperScissors;
-
 namespace Tests
 {
     [TestFixture]
     public class MatchTests
     {
-        Match match; 
+        Match match;
+        private Player playerOne;
+        private Player playerTwo;
 
+        [SetUp]
+        public void Setup()
+        {
+            playerOne = new Player();
+            playerTwo = new Player();
+
+            match = new Match(playerOne, playerTwo);
+        }
 
         [Test]
         public void PlayerOneWinsTwoGamesAndMatch()
         {
-            var playerOne = new Player();
-            var playerTwo = new Player();
-
-            match = new Match(playerOne, playerTwo);
-
-            Game gameOne = new Game(playerOne.Play(Move.Rock), playerTwo.Play(Move.Scissors));
-            Game gameTwo = new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Paper));
-            Game gameThree = new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Rock));
+            var gameOne = new Game(playerOne.Play(Move.Rock), playerTwo.Play(Move.Scissors));
+            var gameTwo = new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Paper));
+            var gameThree = new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Rock));
 
             var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
 
-           
+            Assert.AreEqual(Result.PlayerOneWins, match.ComputeMatchResult(gamesPlayed));
+        }
 
+        [Test]
+        public void PlayerTwoWinsTwoGamesAndMatch()
+        {
 
-            Assert.AreEqual(Result.PlayerOneWins, match.PlayGames(gamesPlayed));
+            var gameOne = new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Rock));
+            var gameTwo = new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Rock));
+            var gameThree = new Game(playerOne.Play(Move.Rock), playerTwo.Play(Move.Paper));
+
+            var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
+
+            Assert.AreEqual(Result.PlayerTwoWins, match.ComputeMatchResult(gamesPlayed));
+        }
+
+        [Test]
+        public void AllGamesDrawSoMatchIsADraw()
+        {
+            var gameOne = new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Scissors));
+            var gameTwo = new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Paper));
+            var gameThree = new Game(playerOne.Play(Move.Rock), playerTwo.Play(Move.Rock));
+
+            var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
+
+            Assert.AreEqual(Result.Draw, match.ComputeMatchResult(gamesPlayed));
+
         }
     }
 }
