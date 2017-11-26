@@ -3,7 +3,7 @@
 namespace Tests
 {
     [TestFixture]
-    public class RoundTests
+    public class GameTests
     {
 
         [TestCase(Move.Rock, Move.Scissors, Result.PlayerOneWins)]
@@ -22,7 +22,7 @@ namespace Tests
 
             Player player1 = new Player();
             Player player2 = new Player();
-            var round = new Round(player1.Play(p1Move), player2.Play(p2Move));
+            var round = new Game(player1.Play(p1Move), player2.Play(p2Move));
 
             Assert.AreEqual(expectedResult, round.Play());
 
