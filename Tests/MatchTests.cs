@@ -6,14 +6,14 @@ namespace Tests
     public class MatchTests
     {
         Match match;
-        private Player playerOne;
-        private Player playerTwo;
+        private IPlayer playerOne;
+        private IPlayer playerTwo;
 
         [SetUp]
         public void Setup()
         {
-            playerOne = new Player();
-            playerTwo = new Player();
+            playerOne = new HumanPlayer();
+            playerTwo = new HumanPlayer();
 
             match = new Match(playerOne, playerTwo);
         }

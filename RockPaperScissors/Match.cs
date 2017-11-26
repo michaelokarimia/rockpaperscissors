@@ -5,10 +5,10 @@ namespace Tests
 {
     public class Match
     {
-        private Player playerOne;
-        private Player playerTwo;
+        private IPlayer playerOne;
+        private IPlayer playerTwo;
 
-        public Match(Player playerOne, Player playerTwo)
+        public Match(IPlayer playerOne, IPlayer playerTwo)
         {
             this.playerOne = playerOne;
             this.playerTwo = playerTwo;

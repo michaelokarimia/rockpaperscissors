@@ -1,17 +1,26 @@
-﻿using System;
-
-namespace Tests
+﻿namespace Tests
 {
-    public class Player
+    public interface IPlayer
     {
-        public Move LastMove { get; private set; }
+        Move LastMove();
 
-        public Player Play(Move move)
+        IPlayer Play(Move move);
+             
+    }
+
+    public class HumanPlayer : IPlayer
+    {
+        Move lastMove;
+
+        public Move LastMove()
         {
-            LastMove = move;
-            return this;
+            return this.lastMove;
         }
 
-        
+        public IPlayer Play(Move move)
+        {
+            lastMove = move;
+            return this;
+        }
     }
 }

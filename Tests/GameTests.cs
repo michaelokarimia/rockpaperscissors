@@ -20,8 +20,8 @@ namespace Tests
         public void PlayerRoundRetunsExpectedResults(Move p1Move, Move p2Move, Result expectedResult)
         {
 
-            Player player1 = new Player();
-            Player player2 = new Player();
+            IPlayer player1 = new HumanPlayer();
+            IPlayer player2 = new HumanPlayer();
             var round = new Game(player1.Play(p1Move), player2.Play(p2Move));
 
             Assert.AreEqual(expectedResult, round.Play());
