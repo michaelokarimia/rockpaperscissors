@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using RockPaperScissors;
 
 namespace Tests
 {

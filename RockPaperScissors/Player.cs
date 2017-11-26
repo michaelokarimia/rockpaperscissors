@@ -1,4 +1,4 @@
-﻿namespace Tests
+﻿namespace RockPaperScissors
 {
     public interface IPlayer
     {
@@ -14,7 +14,7 @@
 
         public Move LastMove()
         {
-            return this.lastMove;
+            return lastMove;
         }
 
         public IPlayer Play(Move move)
