@@ -10,46 +10,42 @@ namespace RockPaperScissors
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Select (r)ock, (p)aper or (s)cissors as your move");
-
-            var inputString = Console.ReadLine().ToLowerInvariant().Trim();
-
-            IPlayer playerOne = new HumanPlayer();
-
-            if (MoveValidator.IsValid(inputString))
-                playerOne.Play(MoveValidator.Parse(inputString));
-            else
-                Console.WriteLine("Invalid input, Select(r)ock, (p)aper or(s)cissors as your move");
-
-            Console.WriteLine("Select (r)ock, (p)aper or (s)cissors as your move");
-
-            inputString = Console.ReadLine().ToLowerInvariant().Trim();
-
-            IPlayer playerTwo = new HumanPlayer();
-
-            if (MoveValidator.IsValid(inputString))
-                playerTwo.Play(MoveValidator.Parse(inputString));
-            else
-                Console.WriteLine("Invalid input, Select(r)ock, (p)aper or(s)cissors as your move");
+            IPlayer playerOne = SelectPlayerType("Player One");
+            IPlayer playerTwo = SelectPlayerType("Player Two");
 
 
-            var gameCount = 0;
+            Match match = new Match(playerOne, playerTwo);
 
-            Console.WriteLine("Playing game");
+            match.Start();
 
-            var firstGame = new Game(playerOne, playerTwo);
 
-            var firstResult = firstGame.Play();
-            gameCount++;
-
-            Console.WriteLine("Game {0}:", gameCount);
-
-            if (firstResult == Result.Draw)
-                Console.WriteLine("Result was a draw");
-            else
-                Console.WriteLine("Player {0} won", firstResult == Result.PlayerOneWins ? "PlayerOne" : "PlayerTwo");
 
             Console.ReadKey();
+        }
+
+
+        public static IPlayer SelectPlayerType(string name)
+        {
+            IPlayer player = new HumanPlayer();
+
+            bool validAnswer = false;
+            int answer = 0;
+            while (!validAnswer)
+            {
+                Console.WriteLine("Is {0} a: 1) human, random computer or tactical computer?", name);
+                Console.WriteLine("Select 1, 2 or 3 as your answer, followed by pressing the ENTER key");
+
+                int.TryParse(Console.ReadLine(), out answer);
+
+                if (answer == 1)
+                {
+                    player = new HumanPlayer();
+                    validAnswer = true;
+                }
+
+            }
+
+            return player;
         }
     }
 }
