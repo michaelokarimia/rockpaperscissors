@@ -54,6 +54,32 @@ namespace Tests
             var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
 
             Assert.AreEqual(Result.Draw, match.ComputeMatchResult(gamesPlayed));
+        }
+
+        [Test]
+        public void IsMatchOverReturnsFalseWhenMidmatch()
+        {
+            var gamesPlayed = new List<Game>() { new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Scissors)) };
+
+            match.ComputeMatchResult(gamesPlayed);
+
+            Assert.False(match.IsGameOver());
+
+        }
+
+        [Test]
+        public void IsMatchOverReturnsTrueAtEndOfMatch()
+        {
+            var gamesPlayed = new List<Game>()
+            { new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Scissors)),
+                new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Paper)),
+                new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Rock))
+            };
+
+
+            match.ComputeMatchResult(gamesPlayed);
+
+            Assert.True(match.IsGameOver());
 
         }
     }

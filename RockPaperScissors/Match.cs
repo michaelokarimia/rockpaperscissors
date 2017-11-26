@@ -7,11 +7,15 @@ namespace RockPaperScissors
     {
         private IPlayer playerOne;
         private IPlayer playerTwo;
+        private int GamesInMatchCount;
+        private int completedGamesCount;
 
         public Match(IPlayer playerOne, IPlayer playerTwo)
         {
             this.playerOne = playerOne;
             this.playerTwo = playerTwo;
+            GamesInMatchCount = 3;
+            completedGamesCount = 0;
         }
 
         public Result ComputeMatchResult(List<Game> games)
@@ -29,6 +33,8 @@ namespace RockPaperScissors
                     p1WinCount++;
                 if (result == Result.PlayerTwoWins)
                     p2WinCount++;
+
+                completedGamesCount++;
             }
 
             if (p1WinCount > p2WinCount)
@@ -37,6 +43,11 @@ namespace RockPaperScissors
                 return Result.PlayerTwoWins;
 
             return Result.Draw;
+        }
+
+        public bool IsGameOver()
+        {
+            return GamesInMatchCount == completedGamesCount;
         }
     }
 }
