@@ -34,8 +34,21 @@ namespace Tests
             var round = new Round(player1.Play(Move.Paper), player2.Play(Move.Scissors));
 
             Assert.AreEqual(Result.PlayerTwoWins, round.Play());
-
             
         }
+
+        [Test]
+        public void DrawWithPaperVsPaper()
+        {
+
+            Player player1 = new Player();
+            Player player2 = new Player();
+            var round = new Round(player1.Play(Move.Paper), player2.Play(Move.Paper));
+
+            Assert.AreEqual(Result.Draw, round.Play());
+
+        }
+
+        
     }
 }
