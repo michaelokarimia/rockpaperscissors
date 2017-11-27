@@ -3,6 +3,10 @@
     public enum MatchState
     {
         PlayerOneTurn,
-        PlayerTwoTurn
+        PlayerTwoTurn,
+        MatchOver,
+        PlayerOneWins,
+        PlayerTwoWins,
+        Draw
     }
 }

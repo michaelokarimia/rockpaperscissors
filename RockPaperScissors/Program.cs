@@ -16,9 +16,22 @@ namespace RockPaperScissors
 
             Match match = new Match(playerOne, playerTwo);
 
-            match.Start();
+            var matchResult = match.Start();
 
+            if(matchResult == MatchState.PlayerOneWins)
+            {
+                Console.WriteLine("Player One won the match!");
+            }
 
+            if (matchResult == MatchState.PlayerTwoWins)
+            {
+                Console.WriteLine("Player Two won the match!");
+            }
+
+            if(matchResult == MatchState.Draw)
+            {
+                Console.WriteLine("It was a draw");
+            }
 
             Console.ReadKey();
         }

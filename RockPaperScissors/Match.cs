@@ -7,14 +7,14 @@ namespace RockPaperScissors
     {
         private IPlayer playerOne;
         private IPlayer playerTwo;
-        private int GamesInMatchCount;
+        private int MaxGamesInMatch;
         private int completedGamesCount;
 
         public Match(IPlayer playerOne, IPlayer playerTwo)
         {
             this.playerOne = playerOne;
             this.playerTwo = playerTwo;
-            GamesInMatchCount = 3;
+            MaxGamesInMatch = 3;
             completedGamesCount = 0;
         }
 
@@ -47,43 +47,75 @@ namespace RockPaperScissors
 
         public bool IsGameOver()
         {
-            return GamesInMatchCount == completedGamesCount;
+            return MaxGamesInMatch == completedGamesCount;
         }
 
-        public void Start()
+        public MatchState Start()
         {
+            MatchState state = MatchState.PlayerOneTurn;
+
+            var p1WinCount = 0;
+            var p2WinCount = 0;
 
 
-            MatchState matchState = MatchState.PlayerOneTurn;
-
-            while (matchState == MatchState.PlayerOneTurn)
+            while (state != MatchState.MatchOver)
             {
-                var validMove = playerOne.GetPlayerMove();
+                while (state == MatchState.PlayerOneTurn)
+                {
+                    var validMove = playerOne.GetPlayerMove();
 
-                matchState = (validMove ? MatchState.PlayerTwoTurn : MatchState.PlayerOneTurn);
+                    state = (validMove ? MatchState.PlayerTwoTurn : MatchState.PlayerOneTurn);
+                }
+
+                while (state == MatchState.PlayerTwoTurn)
+                {
+                    var validMove = playerTwo.GetPlayerMove();
+
+                    state = (validMove ? MatchState.PlayerOneTurn : MatchState.PlayerTwoTurn);
+                }
+
+                var gameResult = PlayGame();
+
+                if (gameResult == Result.PlayerOneWins)
+                    p1WinCount++;
+                if (gameResult == Result.PlayerTwoWins)
+                    p2WinCount++;
+
+                if (completedGamesCount == MaxGamesInMatch)
+                {
+                    state = MatchState.MatchOver;
+                }
             }
 
-            while (matchState == MatchState.PlayerTwoTurn)
-            {
-                var validMove = playerTwo.GetPlayerMove();
+            if (p1WinCount > p2WinCount)
+                return MatchState.PlayerOneWins;
+            else if (p2WinCount > p1WinCount)
+                return MatchState.PlayerTwoWins;
+            else
+                return MatchState.Draw;
 
-                matchState = (validMove ? MatchState.PlayerOneTurn : MatchState.PlayerTwoTurn);
-            }
+            
+          
+        }
 
-
+        private Result PlayGame()
+        {
             Console.WriteLine("Playing game");
 
-            var firstGame = new Game(playerOne, playerTwo);
+            var game = new Game(playerOne, playerTwo);
 
-            var firstResult = firstGame.Play();
-            completedGamesCount++;
+            var gameResult = game.Play();
 
-            Console.WriteLine("Game {0}:", completedGamesCount);
+            Console.WriteLine("Game {0}:", completedGamesCount +1);
 
-            if (firstResult == Result.Draw)
+            if (gameResult == Result.Draw)
                 Console.WriteLine("Result was a draw");
             else
-                Console.WriteLine("Player {0} won", firstResult == Result.PlayerOneWins ? "PlayerOne" : "PlayerTwo");
+                Console.WriteLine("Player {0} won", gameResult == Result.PlayerOneWins ? "PlayerOne" : "PlayerTwo");
+
+            completedGamesCount++;
+
+            return gameResult;
         }
     }
 }
