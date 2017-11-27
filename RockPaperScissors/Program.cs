@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RockPaperScissors
 {
@@ -60,6 +56,10 @@ namespace RockPaperScissors
                         break;
                     case 2:
                         player = new RandomComputerPlayer();
+                        validAnswer = true;
+                        break;
+                    case 3:
+                        player = new TacticalComputerPlayer();
                         validAnswer = true;
                         break;
                     default:
