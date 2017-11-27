@@ -16,18 +16,20 @@ namespace RockPaperScissors
 
         public bool GetPlayerMove()
         {
-            Console.WriteLine("Select (r)ock, (p)aper or (s)cissors as your move");
+            Console.WriteLine("Select (r)ock, (p)aper or (s)cissors as your move, then press ENTER");
 
             var inputString = Console.ReadLine().ToLowerInvariant().Trim();
 
             if (MoveValidator.IsValid(inputString))
             {
-                this.Play(MoveValidator.Parse(inputString));
+                Play(MoveValidator.Parse(inputString));
                 return true;
             }
             else
-                Console.WriteLine("Invalid input, Select(r)ock, (p)aper or(s)cissors as your move");
-
+            {
+                Console.WriteLine("Invalid input.");
+                Console.WriteLine("Select(r)ock, (p)aper or(s)cissors as your move, then press ENTER");
+            }
             return false;
         }
 

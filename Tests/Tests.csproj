@@ -50,6 +50,7 @@
     <Compile Include="MatchTests.cs" />
     <Compile Include="MoveValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomComputerPlayerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

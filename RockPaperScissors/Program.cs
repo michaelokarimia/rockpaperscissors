@@ -51,11 +51,23 @@ namespace RockPaperScissors
 
                 int.TryParse(Console.ReadLine(), out answer);
 
-                if (answer == 1)
+
+                switch (answer)
                 {
-                    player = new HumanPlayer();
-                    validAnswer = true;
+                    case 1:
+                        player = new HumanPlayer();
+                        validAnswer = true;
+                        break;
+                    case 2:
+                        player = new RandomComputerPlayer();
+                        validAnswer = true;
+                        break;
+                    default:
+                        break;
                 }
+
+                
+                
 
             }
 
