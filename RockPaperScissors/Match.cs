@@ -104,6 +104,10 @@ namespace RockPaperScissors
 
             var game = new Game(playerOne, playerTwo);
 
+            Console.WriteLine("Player One move was {0}", playerOne.LastMove());
+            Console.WriteLine("Player Two move was {0}", playerTwo.LastMove());
+
+
             var gameResult = game.Play();
 
             Console.WriteLine("Game {0}:", completedGamesCount +1);
