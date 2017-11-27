@@ -9,19 +9,22 @@ namespace RockPaperScissors
         private IPlayer playerTwo;
         private int MaxGamesInMatch;
         private int completedGamesCount;
+        private MatchState state;
 
         public Match(IPlayer playerOne, IPlayer playerTwo)
         {
             this.playerOne = playerOne;
             this.playerTwo = playerTwo;
+            
+            //increase MaxGames in match to add more rounds
             MaxGamesInMatch = 3;
             completedGamesCount = 0;
+            state = MatchState.Incomplete;
+            
         }
 
-        public MatchState Start()
+        public MatchResult Start()
         {
-            MatchState state = MatchState.PlayerOneTurn;
-
             var p1WinCount = 0;
             var p2WinCount = 0;
 
@@ -42,13 +45,13 @@ namespace RockPaperScissors
             }
 
             if (p1WinCount > p2WinCount)
-                return MatchState.PlayerOneWins;
+                return MatchResult.PlayerOneWins;
             else if (p2WinCount > p1WinCount)
-                return MatchState.PlayerTwoWins;
+                return MatchResult.PlayerTwoWins;
             else
-                return MatchState.Draw;
+                return MatchResult.Draw;
 
-            
+            throw new InvalidProgramException("Should have returned a valid MatchResult");
           
         }
 

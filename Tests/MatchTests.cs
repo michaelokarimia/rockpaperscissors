@@ -33,7 +33,7 @@ namespace Tests
                 .Returns(Move.Paper)
                 .Returns(Move.Paper);
 
-            Assert.AreEqual(MatchState.PlayerOneWins, match.Start());
+            Assert.AreEqual(MatchResult.PlayerOneWins, match.Start());
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Tests
                 .Returns(Move.Rock)
                 .Returns(Move.Paper);
 
-            Assert.AreEqual(MatchState.PlayerTwoWins, match.Start());
+            Assert.AreEqual(MatchResult.PlayerTwoWins, match.Start());
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Tests
                 .Returns(Move.Scissors);
 
 
-            Assert.AreEqual(MatchState.Draw, match.Start());
+            Assert.AreEqual(MatchResult.Draw, match.Start());
         }
     }
 }

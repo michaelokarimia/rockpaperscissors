@@ -9,22 +9,21 @@ namespace RockPaperScissors
             IPlayer playerOne = SelectPlayerType("Player One");
             IPlayer playerTwo = SelectPlayerType("Player Two");
 
-
             Match match = new Match(playerOne, playerTwo);
 
             var matchResult = match.Start();
 
-            if(matchResult == MatchState.PlayerOneWins)
+            if(matchResult == MatchResult.PlayerOneWins)
             {
                 Console.WriteLine("Player One won the match!");
             }
 
-            if (matchResult == MatchState.PlayerTwoWins)
+            if (matchResult == MatchResult.PlayerTwoWins)
             {
                 Console.WriteLine("Player Two won the match!");
             }
 
-            if(matchResult == MatchState.Draw)
+            if(matchResult == MatchResult.Draw)
             {
                 Console.WriteLine("It was a draw");
             }
@@ -35,9 +34,6 @@ namespace RockPaperScissors
 
         public static IPlayer SelectPlayerType(string name)
         {
-            //defaults to human player type
-            IPlayer player = new HumanPlayer();
-
             bool validAnswer = false;
             int answer = 0;
             while (!validAnswer)
@@ -51,24 +47,20 @@ namespace RockPaperScissors
                 switch (answer)
                 {
                     case 1:
-                        player = new HumanPlayer();
-                        validAnswer = true;
+                        return new HumanPlayer();
                         break;
                     case 2:
-                        player = new RandomComputerPlayer();
-                        validAnswer = true;
+                        return new RandomComputerPlayer();
                         break;
                     case 3:
-                        player = new TacticalComputerPlayer();
-                        validAnswer = true;
+                        return new TacticalComputerPlayer();
                         break;
                     default:
                         break;
                 }
-
             }
 
-            return player;
+            throw new ArgumentOutOfRangeException("Allowed player types are: Human, Random computer and Tatical computer");
         }
     }
 }

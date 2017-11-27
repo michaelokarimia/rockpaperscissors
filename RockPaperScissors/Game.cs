@@ -1,4 +1,5 @@
-﻿namespace RockPaperScissors
+﻿using System;
+namespace RockPaperScissors
 {
     public class Game
     {
@@ -45,7 +46,8 @@
             if (playerOneMove == Move.Paper && playerTwoMove == Move.Rock)
                 return GameResult.PlayerOneWins;
 
-            return GameResult.Draw;
+            //if we get here, then this scenario hasn't been catered for so throw
+            throw new InvalidProgramException("Game Scenario was not expected");
         }
     }
 }
