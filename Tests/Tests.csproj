@@ -51,6 +51,7 @@
     <Compile Include="MoveValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomComputerPlayerTests.cs" />
+    <Compile Include="TacticalComputerPlayerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

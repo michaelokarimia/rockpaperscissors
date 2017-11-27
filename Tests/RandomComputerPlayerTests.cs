@@ -45,7 +45,6 @@ namespace Tests
                         break;
                     default:
                         throw new ArgumentOutOfRangeException("Should only be rock, paper or scissors");
-                        break;
                 }
 
             }

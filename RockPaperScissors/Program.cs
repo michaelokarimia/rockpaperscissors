@@ -46,7 +46,7 @@ namespace RockPaperScissors
             int answer = 0;
             while (!validAnswer)
             {
-                Console.WriteLine("Is {0} a: 1) human, random computer or tactical computer?", name);
+                Console.WriteLine("Is {0} a: 1) human, 2) random computer or 3) tactical computer?", name);
                 Console.WriteLine("Select 1, 2 or 3 as your answer, followed by pressing the ENTER key");
 
                 int.TryParse(Console.ReadLine(), out answer);
@@ -65,9 +65,6 @@ namespace RockPaperScissors
                     default:
                         break;
                 }
-
-                
-                
 
             }
 
