@@ -11,7 +11,7 @@
             this.p2 = p2;
         }
 
-        public Result Play()
+        public GameResult Play()
         {
             var playerOneMove = p1.GetPlayerMove();
 
@@ -19,33 +19,33 @@
 
             // same moves will always result in a draw
             if (playerOneMove == playerTwoMove)
-                return Result.Draw;
+                return GameResult.Draw;
 
             //rock beats scissors, p1 wins
             if (playerOneMove == Move.Rock && playerTwoMove == Move.Scissors)
-                return Result.PlayerOneWins;
+                return GameResult.PlayerOneWins;
 
             //rock loses against paper
             if (playerOneMove == Move.Rock && playerTwoMove == Move.Paper)
-                return Result.PlayerTwoWins;
+                return GameResult.PlayerTwoWins;
 
             //scissors beats paper
             if (playerOneMove == Move.Scissors && playerTwoMove == Move.Paper)
-                return Result.PlayerOneWins;
+                return GameResult.PlayerOneWins;
 
             //scissor lose agaist rock
             if (playerOneMove == Move.Scissors && playerTwoMove == Move.Rock)
-                return Result.PlayerTwoWins;
+                return GameResult.PlayerTwoWins;
 
             //paper loses against Scissors
             if (playerOneMove == Move.Paper && playerTwoMove == Move.Scissors)
-                return Result.PlayerTwoWins;
+                return GameResult.PlayerTwoWins;
 
             //paper beats rock
             if (playerOneMove == Move.Paper && playerTwoMove == Move.Rock)
-                return Result.PlayerOneWins;
+                return GameResult.PlayerOneWins;
 
-            return Result.Draw;
+            return GameResult.Draw;
         }
     }
 }

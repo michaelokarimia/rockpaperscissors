@@ -33,22 +33,12 @@ namespace Tests
                 .Returns(Move.Paper)
                 .Returns(Move.Paper);
 
-
-            var gamesPlayed = new List<Game> {
-
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object),
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object),
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object)
-            };
-
-            Assert.AreEqual(Result.PlayerOneWins, match.ComputeMatchResult(gamesPlayed));
+            Assert.AreEqual(MatchState.PlayerOneWins, match.Start());
         }
 
         [Test]
         public void PlayerTwoWinsTwoGamesAndMatch()
         {
-          
-
             match = new RockPaperScissors.Match(mockPlayerOne.Object, mockPlayerTwo.Object);
 
             mockPlayerOne.SetupSequence(x => x.GetPlayerMove())
@@ -61,14 +51,7 @@ namespace Tests
                 .Returns(Move.Rock)
                 .Returns(Move.Paper);
 
-            var gamesPlayed = new List<Game> {
-
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object),
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object),
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object)
-            };
-
-            Assert.AreEqual(Result.PlayerTwoWins, match.ComputeMatchResult(gamesPlayed));
+            Assert.AreEqual(MatchState.PlayerTwoWins, match.Start());
         }
 
         [Test]
@@ -88,14 +71,8 @@ namespace Tests
                 .Returns(Move.Paper)
                 .Returns(Move.Scissors);
 
-            var gamesPlayed = new List<Game> {
 
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object),
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object),
-                new Game(mockPlayerOne.Object, mockPlayerTwo.Object)
-            };
-
-            Assert.AreEqual(Result.Draw, match.ComputeMatchResult(gamesPlayed));
+            Assert.AreEqual(MatchState.Draw, match.Start());
         }
     }
 }

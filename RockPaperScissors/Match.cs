@@ -18,33 +18,6 @@ namespace RockPaperScissors
             completedGamesCount = 0;
         }
 
-        public Result ComputeMatchResult(List<Game> games)
-        {
-            var drawCount = 0;
-            var p1WinCount = 0;
-            var p2WinCount = 0;
-
-            foreach(Game game in games)
-            {
-                var result = game.Play();
-                if (result == Result.Draw)
-                    drawCount++;
-                if (result == Result.PlayerOneWins)
-                    p1WinCount++;
-                if (result == Result.PlayerTwoWins)
-                    p2WinCount++;
-
-                completedGamesCount++;
-            }
-
-            if (p1WinCount > p2WinCount)
-                return Result.PlayerOneWins;
-            if (p2WinCount > p1WinCount)
-                return Result.PlayerTwoWins;
-
-            return Result.Draw;
-        }
-
         public MatchState Start()
         {
             MatchState state = MatchState.PlayerOneTurn;
@@ -57,9 +30,9 @@ namespace RockPaperScissors
             {
                 var gameResult = PlayGame();
 
-                if (gameResult == Result.PlayerOneWins)
+                if (gameResult == GameResult.PlayerOneWins)
                     p1WinCount++;
-                if (gameResult == Result.PlayerTwoWins)
+                if (gameResult == GameResult.PlayerTwoWins)
                     p2WinCount++;
 
                 if (completedGamesCount == MaxGamesInMatch)
@@ -79,7 +52,7 @@ namespace RockPaperScissors
           
         }
 
-        private Result PlayGame()
+        private GameResult PlayGame()
         {
             Console.WriteLine("Playing game");
 
@@ -93,10 +66,10 @@ namespace RockPaperScissors
 
             Console.WriteLine("Game {0}:", completedGamesCount +1);
 
-            if (gameResult == Result.Draw)
+            if (gameResult == GameResult.Draw)
                 Console.WriteLine("Result was a draw");
             else
-                Console.WriteLine("Player {0} won", gameResult == Result.PlayerOneWins ? "PlayerOne" : "PlayerTwo");
+                Console.WriteLine("Player {0} won", gameResult == GameResult.PlayerOneWins ? "PlayerOne" : "PlayerTwo");
 
             completedGamesCount++;
 

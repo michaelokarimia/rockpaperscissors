@@ -10,18 +10,18 @@ namespace Tests
         
 
 
-        [TestCase(Move.Rock, Move.Scissors, Result.PlayerOneWins)]
-        [TestCase(Move.Rock, Move.Paper, Result.PlayerTwoWins)]
-        [TestCase(Move.Rock, Move.Rock, Result.Draw)]
+        [TestCase(Move.Rock, Move.Scissors, GameResult.PlayerOneWins)]
+        [TestCase(Move.Rock, Move.Paper, GameResult.PlayerTwoWins)]
+        [TestCase(Move.Rock, Move.Rock, GameResult.Draw)]
 
-        [TestCase(Move.Paper, Move.Rock, Result.PlayerOneWins)]
-        [TestCase(Move.Paper, Move.Scissors, Result.PlayerTwoWins)]
-        [TestCase(Move.Paper, Move.Paper, Result.Draw)]
+        [TestCase(Move.Paper, Move.Rock, GameResult.PlayerOneWins)]
+        [TestCase(Move.Paper, Move.Scissors, GameResult.PlayerTwoWins)]
+        [TestCase(Move.Paper, Move.Paper, GameResult.Draw)]
 
-        [TestCase(Move.Scissors, Move.Paper, Result.PlayerOneWins)]
-        [TestCase(Move.Scissors, Move.Rock, Result.PlayerTwoWins)]
-        [TestCase(Move.Scissors, Move.Scissors, Result.Draw)]
-        public void PlayerRoundRetunsExpectedResults(Move p1Move, Move p2Move, Result expectedResult)
+        [TestCase(Move.Scissors, Move.Paper, GameResult.PlayerOneWins)]
+        [TestCase(Move.Scissors, Move.Rock, GameResult.PlayerTwoWins)]
+        [TestCase(Move.Scissors, Move.Scissors, GameResult.Draw)]
+        public void PlayerRoundRetunsExpectedResults(Move p1Move, Move p2Move, GameResult expectedResult)
         {
             Mock<IPlayer> player1Mock = new Mock<IPlayer>();
             Mock<IPlayer> player2Mock = new Mock<IPlayer>();
