@@ -95,51 +95,5 @@ namespace Tests
 
             Assert.AreEqual(Result.Draw, match.ComputeMatchResult(gamesPlayed));
         }
-
-        [Test]
-        public void IsMatchOverReturnsFalseWhenMidmatch()
-        {
-            match = new RockPaperScissors.Match(mockPlayerOne.Object, mockPlayerTwo.Object);
-
-            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
-            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
-
-            var gamesPlayed = new List<Game>() { new Game(mockPlayerOne.Object, mockPlayerTwo.Object) };
-
-            match.ComputeMatchResult(gamesPlayed);
-
-            Assert.False(match.IsGameOver());
-
-        }
-
-        [Test]
-        public void IsMatchOverReturnsTrueAtEndOfMatch()
-        {
-
-            match = new RockPaperScissors.Match(mockPlayerOne.Object, mockPlayerTwo.Object);
-
-            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
-            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
-
-            var gameOne = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
-
-            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
-            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
-
-            var gameTwo = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
-
-            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
-            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
-
-            var gameThree = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
-
-            var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
-
-
-            match.ComputeMatchResult(gamesPlayed);
-
-            Assert.True(match.IsGameOver());
-
-        }
     }
 }

@@ -45,11 +45,6 @@ namespace RockPaperScissors
             return Result.Draw;
         }
 
-        public bool IsGameOver()
-        {
-            return MaxGamesInMatch == completedGamesCount;
-        }
-
         public MatchState Start()
         {
             MatchState state = MatchState.PlayerOneTurn;
