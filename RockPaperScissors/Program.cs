@@ -26,6 +26,7 @@ namespace RockPaperScissors
 
         public static IPlayer SelectPlayerType(string name)
         {
+            //defaults to human player type
             IPlayer player = new HumanPlayer();
 
             bool validAnswer = false;

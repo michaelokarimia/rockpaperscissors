@@ -53,39 +53,32 @@ namespace RockPaperScissors
         public void Start()
         {
 
-            Console.WriteLine("Select (r)ock, (p)aper or (s)cissors as your move");
 
-            var inputString = Console.ReadLine().ToLowerInvariant().Trim();
+            MatchState matchState = MatchState.PlayerOneTurn;
 
-            playerOne = new HumanPlayer();
+            while (matchState == MatchState.PlayerOneTurn)
+            {
+                var validMove = playerOne.GetPlayerMove();
 
-            if (MoveValidator.IsValid(inputString))
-                playerOne.Play(MoveValidator.Parse(inputString));
-            else
-                Console.WriteLine("Invalid input, Select(r)ock, (p)aper or(s)cissors as your move");
+                matchState = (validMove ? MatchState.PlayerTwoTurn : MatchState.PlayerOneTurn);
+            }
 
-            Console.WriteLine("Select (r)ock, (p)aper or (s)cissors as your move");
+            while (matchState == MatchState.PlayerTwoTurn)
+            {
+                var validMove = playerTwo.GetPlayerMove();
 
-            inputString = Console.ReadLine().ToLowerInvariant().Trim();
+                matchState = (validMove ? MatchState.PlayerOneTurn : MatchState.PlayerTwoTurn);
+            }
 
-            playerTwo = new HumanPlayer();
-
-            if (MoveValidator.IsValid(inputString))
-                playerTwo.Play(MoveValidator.Parse(inputString));
-            else
-                Console.WriteLine("Invalid input, Select(r)ock, (p)aper or(s)cissors as your move");
-
-
-            var gameCount = 0;
 
             Console.WriteLine("Playing game");
 
             var firstGame = new Game(playerOne, playerTwo);
 
             var firstResult = firstGame.Play();
-            gameCount++;
+            completedGamesCount++;
 
-            Console.WriteLine("Game {0}:", gameCount);
+            Console.WriteLine("Game {0}:", completedGamesCount);
 
             if (firstResult == Result.Draw)
                 Console.WriteLine("Result was a draw");
