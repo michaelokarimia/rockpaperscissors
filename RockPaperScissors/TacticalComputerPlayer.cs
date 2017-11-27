@@ -50,12 +50,6 @@ namespace RockPaperScissors
 
             return lastMove;
         }
-
-        public void Play(Move move)
-        {
-            lastMove = move;
-
-            hasMadeFirstMove = true;
-        }
+       
     }
 }

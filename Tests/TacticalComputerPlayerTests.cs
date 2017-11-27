@@ -52,18 +52,20 @@ namespace Tests
         }
 
         [Test]
-        public void SecondAndThirdMovesAreTactical()
+        public void PlaysSecondAndThirdMovesTactically()
         {
-            //execute this 100 times, since the results should never change
 
-            for (int i = 0; i < 100; i++)
-            {
                 //plays the move that would have defeated it's last move
 
-                TacticalComputerPlayer player = new TacticalComputerPlayer();
+                IPlayer player = new TacticalComputerPlayer();
 
-                //start first move as scissors
-                player.Play(Move.Scissors);
+                //get tatical player with it's first move as scissors, otherwise discard it 
+                while(player.LastMove != Move.Scissors)
+                {
+                    player.GetPlayerMove();
+                }
+
+
 
                 //scissors are defeated by rock
                 Assert.AreEqual(Move.Rock, player.GetPlayerMove());
@@ -71,10 +73,9 @@ namespace Tests
                 //rock is defeated by paper
                 Assert.AreEqual(Move.Paper, player.GetPlayerMove());
 
-                // avoids race condition
-                Thread.Sleep(1);
+  
             }
-        }
+        
 
     }
 }
