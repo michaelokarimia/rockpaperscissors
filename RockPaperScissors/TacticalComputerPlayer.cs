@@ -8,13 +8,15 @@ namespace RockPaperScissors
         private Move lastMove;
         bool hasMadeFirstMove;
 
+        public Move LastMove { get { return lastMove; } }
+
         public TacticalComputerPlayer()
         {
             rand = new Random();
             hasMadeFirstMove = false;
         }
 
-        public bool GetPlayerMove()
+        public Move GetPlayerMove()
         {
             if(hasMadeFirstMove)
             {
@@ -42,21 +44,18 @@ namespace RockPaperScissors
                 lastMove = (Move)choice;
 
                 hasMadeFirstMove = true;
+
+                
             }
 
-            return true;
-        }
-
-        public Move LastMove()
-        {
             return lastMove;
         }
 
-        public IPlayer Play(Move move)
+        public void Play(Move move)
         {
-            this.lastMove = move;
+            lastMove = move;
+
             hasMadeFirstMove = true;
-            return this;
         }
     }
 }

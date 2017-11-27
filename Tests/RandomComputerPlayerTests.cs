@@ -21,7 +21,7 @@ namespace Tests
 
             player.GetPlayerMove();
 
-            var lastMove = player.LastMove();
+            var lastMove = player.GetPlayerMove();
 
             var rockCount = 0;
             var scisssorsCount = 0;
@@ -30,7 +30,7 @@ namespace Tests
             for(int i = 0; i < 100; i++)
             {
                 player.GetPlayerMove();
-                lastMove = player.LastMove();
+                lastMove = player.GetPlayerMove();
 
                 switch (lastMove)
                 {

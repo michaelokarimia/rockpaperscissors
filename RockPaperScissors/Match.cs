@@ -62,16 +62,16 @@ namespace RockPaperScissors
             {
                 while (state == MatchState.PlayerOneTurn)
                 {
-                    var validMove = playerOne.GetPlayerMove();
+                    var p1Move = playerOne.GetPlayerMove();
 
-                    state = (validMove ? MatchState.PlayerTwoTurn : MatchState.PlayerOneTurn);
+                    state = MatchState.PlayerTwoTurn;
                 }
 
                 while (state == MatchState.PlayerTwoTurn)
                 {
-                    var validMove = playerTwo.GetPlayerMove();
+                    var p2Move = playerTwo.GetPlayerMove();
 
-                    state = (validMove ? MatchState.PlayerOneTurn : MatchState.PlayerTwoTurn);
+                    state = MatchState.PlayerOneTurn;
                 }
 
                 var gameResult = PlayGame();
@@ -104,8 +104,8 @@ namespace RockPaperScissors
 
             var game = new Game(playerOne, playerTwo);
 
-            Console.WriteLine("Player One move was {0}", playerOne.LastMove());
-            Console.WriteLine("Player Two move was {0}", playerTwo.LastMove());
+            Console.WriteLine("Player One move was {0}", playerOne.LastMove);
+            Console.WriteLine("Player Two move was {0}", playerTwo.LastMove);
 
 
             var gameResult = game.Play();

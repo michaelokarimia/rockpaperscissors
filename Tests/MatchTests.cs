@@ -1,30 +1,42 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using RockPaperScissors;
+using Moq;
 namespace Tests
 {
     [TestFixture]
     public class MatchTests
     {
-        Match match;
-        private IPlayer playerOne;
-        private IPlayer playerTwo;
+        RockPaperScissors.Match match;
+        private Mock<IPlayer> mockPlayerOne;
+        private Mock<IPlayer> mockPlayerTwo;
 
         [SetUp]
         public void Setup()
         {
-            playerOne = new HumanPlayer();
-            playerTwo = new HumanPlayer();
-
-            match = new Match(playerOne, playerTwo);
+            mockPlayerOne = new Mock<IPlayer>();
+            mockPlayerTwo = new Mock<IPlayer>();
         }
 
         [Test]
         public void PlayerOneWinsTwoGamesAndMatch()
         {
-            var gameOne = new Game(playerOne.Play(Move.Rock), playerTwo.Play(Move.Scissors));
-            var gameTwo = new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Paper));
-            var gameThree = new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Rock));
+            match = new RockPaperScissors.Match(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+
+            var gameOne = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
+
+            var gameTwo = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
+
+            var gameThree = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
 
             var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
 
@@ -34,10 +46,24 @@ namespace Tests
         [Test]
         public void PlayerTwoWinsTwoGamesAndMatch()
         {
+          
 
-            var gameOne = new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Rock));
-            var gameTwo = new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Rock));
-            var gameThree = new Game(playerOne.Play(Move.Rock), playerTwo.Play(Move.Paper));
+            match = new RockPaperScissors.Match(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+
+            var gameOne = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+
+            var gameTwo = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
+
+            var gameThree = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
 
             var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
 
@@ -47,9 +73,23 @@ namespace Tests
         [Test]
         public void AllGamesDrawSoMatchIsADraw()
         {
-            var gameOne = new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Scissors));
-            var gameTwo = new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Paper));
-            var gameThree = new Game(playerOne.Play(Move.Rock), playerTwo.Play(Move.Rock));
+
+            match = new RockPaperScissors.Match(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+
+            var gameOne = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
+
+            var gameTwo = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+
+            var gameThree = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
 
             var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
 
@@ -59,7 +99,12 @@ namespace Tests
         [Test]
         public void IsMatchOverReturnsFalseWhenMidmatch()
         {
-            var gamesPlayed = new List<Game>() { new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Scissors)) };
+            match = new RockPaperScissors.Match(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+
+            var gamesPlayed = new List<Game>() { new Game(mockPlayerOne.Object, mockPlayerTwo.Object) };
 
             match.ComputeMatchResult(gamesPlayed);
 
@@ -70,11 +115,25 @@ namespace Tests
         [Test]
         public void IsMatchOverReturnsTrueAtEndOfMatch()
         {
-            var gamesPlayed = new List<Game>()
-            { new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Scissors)),
-                new Game(playerOne.Play(Move.Scissors), playerTwo.Play(Move.Paper)),
-                new Game(playerOne.Play(Move.Paper), playerTwo.Play(Move.Rock))
-            };
+
+            match = new RockPaperScissors.Match(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Scissors);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+
+            var gameOne = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+
+            var gameTwo = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            mockPlayerOne.Setup(x => x.GetPlayerMove()).Returns(Move.Rock);
+            mockPlayerTwo.Setup(x => x.GetPlayerMove()).Returns(Move.Paper);
+
+            var gameThree = new Game(mockPlayerOne.Object, mockPlayerTwo.Object);
+
+            var gamesPlayed = new List<Game> { gameOne, gameTwo, gameThree };
 
 
             match.ComputeMatchResult(gamesPlayed);

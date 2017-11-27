@@ -4,44 +4,40 @@ namespace RockPaperScissors
 {
     public interface IPlayer
     {
-        Move LastMove();
 
-        IPlayer Play(Move move);
-        bool GetPlayerMove();
+        Move GetPlayerMove();
+        Move LastMove { get; }
     }
 
     public class HumanPlayer : IPlayer
     {
         Move lastMove;
 
-        public bool GetPlayerMove()
+        public Move LastMove { get { return lastMove; } }
+
+        public Move GetPlayerMove()
         {
-            Console.WriteLine("Select (r)ock, (p)aper or (s)cissors as your move, then press ENTER");
+            bool validMove = false;
 
-            var inputString = Console.ReadLine().ToLowerInvariant().Trim();
-
-            if (MoveValidator.IsValid(inputString))
+            while (!validMove)
             {
-                Play(MoveValidator.Parse(inputString));
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Invalid input.");
-                Console.WriteLine("Select(r)ock, (p)aper or(s)cissors as your move, then press ENTER");
-            }
-            return false;
-        }
+                Console.WriteLine("Select (r)ock, (p)aper or (s)cissors as your move, then press ENTER");
 
-        public Move LastMove()
-        {
+                var inputString = Console.ReadLine().ToLowerInvariant().Trim();
+
+                if (MoveValidator.IsValid(inputString))
+                {
+                    lastMove = (MoveValidator.Parse(inputString));
+                    validMove = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input.");
+                    Console.WriteLine("Select(r)ock, (p)aper or(s)cissors as your move, then press ENTER");
+                }
+            }
+
             return lastMove;
-        }
-
-        public IPlayer Play(Move move)
-        {
-            lastMove = move;
-            return this;
         }
     }
 }

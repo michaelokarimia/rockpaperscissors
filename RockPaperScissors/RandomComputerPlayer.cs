@@ -7,30 +7,20 @@ namespace RockPaperScissors
         private Move lastMove;
         private Random rand;
 
+        public Move LastMove { get { return lastMove; } }
 
         public RandomComputerPlayer()
         {
             rand = new Random();
         }
 
-        public bool GetPlayerMove()
+        public Move GetPlayerMove()
         {
-            int choice = rand.Next(1,4);
+            int choice = rand.Next(1, 4);
 
             lastMove = (Move)choice;
 
-            return true;
-        }
-
-        public Move LastMove()
-        {
-            return this.lastMove;
-        }
-
-        public IPlayer Play(Move move)
-        {
-            lastMove = move;
-            return this;
+            return lastMove;
         }
     }
 }

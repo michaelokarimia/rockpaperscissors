@@ -23,7 +23,7 @@ namespace Tests
                 player = new TacticalComputerPlayer();
 
                 player.GetPlayerMove();
-                var lastMove = player.LastMove();
+                var lastMove = player.GetPlayerMove();
 
                 switch (lastMove)
                 {
@@ -60,20 +60,16 @@ namespace Tests
             {
                 //plays the move that would have defeated it's last move
 
-                IPlayer player = new TacticalComputerPlayer();
+                TacticalComputerPlayer player = new TacticalComputerPlayer();
 
                 //start first move as scissors
                 player.Play(Move.Scissors);
 
-                player.GetPlayerMove();
-
                 //scissors are defeated by rock
-                Assert.AreEqual(Move.Rock, player.LastMove());
-
-                player.GetPlayerMove();
+                Assert.AreEqual(Move.Rock, player.GetPlayerMove());
 
                 //rock is defeated by paper
-                Assert.AreEqual(Move.Paper, player.LastMove());
+                Assert.AreEqual(Move.Paper, player.GetPlayerMove());
 
                 // avoids race condition
                 Thread.Sleep(1);

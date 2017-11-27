@@ -1,11 +1,14 @@
 ﻿using NUnit.Framework;
 using RockPaperScissors;
+using Moq;
 
 namespace Tests
 {
     [TestFixture]
     public class GameTests
     {
+        
+
 
         [TestCase(Move.Rock, Move.Scissors, Result.PlayerOneWins)]
         [TestCase(Move.Rock, Move.Paper, Result.PlayerTwoWins)]
@@ -20,10 +23,17 @@ namespace Tests
         [TestCase(Move.Scissors, Move.Scissors, Result.Draw)]
         public void PlayerRoundRetunsExpectedResults(Move p1Move, Move p2Move, Result expectedResult)
         {
+            Mock<IPlayer> player1Mock = new Mock<IPlayer>();
+            Mock<IPlayer> player2Mock = new Mock<IPlayer>();
 
-            IPlayer player1 = new HumanPlayer();
-            IPlayer player2 = new HumanPlayer();
-            var round = new Game(player1.Play(p1Move), player2.Play(p2Move));
+            player1Mock.Setup(x => x.GetPlayerMove()).Returns(p1Move);
+            player2Mock.Setup(x => x.GetPlayerMove()).Returns(p2Move);
+
+            var player1 = player1Mock.Object;
+            var player2 = player2Mock.Object;
+
+
+            var round = new Game(player1, player2);
 
             Assert.AreEqual(expectedResult, round.Play());
 
