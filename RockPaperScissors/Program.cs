@@ -48,13 +48,10 @@ namespace RockPaperScissors
                 {
                     case 1:
                         return new HumanPlayer();
-                        break;
                     case 2:
                         return new RandomComputerPlayer();
-                        break;
                     case 3:
                         return new TacticalComputerPlayer();
-                        break;
                     default:
                         break;
                 }
